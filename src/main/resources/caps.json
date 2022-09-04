@@ -1,0 +1,9 @@
+{
+  "caps": {
+    "platformName": "Android",
+    "platformVersion": "12.0",
+    "deviceName": "Pixel 2",
+    "appPackage": "com.zdv.secretcloset",
+    "appActivity": "MainActivity"
+  }
+}
