@@ -1,39 +1,58 @@
 package base.element
 
 import base.driver.Driver
+import base.waits.ExplicitWait
+import base.waits.TypeWait
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 
 open class BaseElement(private var locator: By, private var name: String) {
 
-    lateinit var element: WebElement
+    protected lateinit var element: WebElement
+    protected lateinit var typeWait: TypeWait
 
-    constructor(locator: By, name: String, _element: WebElement) : this(locator, name) {
-        element = _element
-    }
-
-    fun getWElement(): WebElement {
-        if(!::element.isInitialized) {
-          element = findElement()
+    @JvmName("getElement1")
+    fun getElement(): WebElement {
+        if (::element.isInitialized) {
+            return element
+        } else {
+            return findElement()
         }
-        return element
     }
 
-    fun findElement() = Driver.getDriver().findElement(locator)
+    fun findElement(): WebElement {
+        if (::typeWait.isInitialized) {
+            if (typeWait.name.equals(TypeWait.PRESENCE_OF_ELEMENT_LOCATED.name)) {
+                return wait().presenceOfElementLocated()
+            } else {
+                return wait().elementToBeClickable()
+            }
+        } else {
+            return Driver.getDriver().findElement(locator)
+        }
+    }
 
-    fun findElements() = Driver.getDriver().findElements(locator)
+    fun findElements(): List<WebElement> {
+        if (::typeWait.isInitialized) {
+            if (typeWait.name.equals(TypeWait.LIST_PRESENCE_OF_ELEMENT_LOCATED.name)) {
+                return wait().listPresenceOfElementLocated()
+            } else {
+                return wait().visibilityOfAllElements()
+            }
+        } else {
+            return Driver.getDriver().findElements(locator)
+        }
+    }
 
     fun click() {
-        getWElement().click()
+        getElement().click()
     }
 
-    fun getText(): String {
-        return getWElement().text
-    }
+    fun getText() = getElement().text
 
-    fun isEnabled(): Boolean {
-        return getWElement().isEnabled
-    }
+    fun isEnabled() = getElement().isEnabled
+
+    fun isDisplayed() = getElement().isDisplayed
 
     fun <T> getElements(clazz: Class<T>): List<BaseElement> {
         val list: ArrayList<BaseElement> = arrayListOf()
@@ -44,9 +63,8 @@ open class BaseElement(private var locator: By, private var name: String) {
                 list.add(Button(locator, name, element))
             }
         }
-        for(e: Any in list) {
-            println(e.toString())
-        }
         return list
     }
+
+    private fun wait() = ExplicitWait(locator)
 }

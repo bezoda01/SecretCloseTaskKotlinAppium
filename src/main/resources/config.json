@@ -2,6 +2,6 @@
   "urlAppium": "http://0.0.0.0:4723/wd/hub",
   "timeouts": {
     "timeoutImplicit": 0,
-    "timeoutCondition": 15
+    "timeoutCondition": 25
   }
 }

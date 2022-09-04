@@ -1,4 +1,3 @@
-import base.driver.Driver
 import base.screens.CityChoiceScreen
 import base.screens.MainScreen
 import base.screens.ProductScreen
@@ -6,15 +5,13 @@ import base.screens.SellerScreen
 import org.testng.Assert
 import org.testng.annotations.Test
 import utils.StringUtils
-import java.time.Duration
-import kotlin.test.assertEquals
 
 class TestScenario {
 
     @Test
     fun test() {
-        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(25))
         val mainScreen = MainScreen()
+        Assert.assertTrue(mainScreen.isDisplayed(), "Main screen didn't open")
         mainScreen.openCityChoice()
         val cityChoiceScreen = CityChoiceScreen()
         cityChoiceScreen.allowAlert()
@@ -29,9 +26,11 @@ class TestScenario {
         )
         mainScreen.clickOnProduct()
         val productScreen = ProductScreen()
+        Assert.assertTrue(productScreen.isDisplayed(), "product screen didn't open")
         val productData: List<String> = productScreen.getSellerNameAndCity()
         productScreen.clickOnSeller()
         val sellerScreen = SellerScreen()
-        assertEquals(sellerScreen.getNameAndCity(), productData, "seller name and city not correct")
+        Assert.assertTrue(sellerScreen.isDisplayed(), "Seller screen didn't open")
+        Assert.assertEquals(sellerScreen.getNameAndCity(), productData, "seller name and city not correct")
     }
 }
