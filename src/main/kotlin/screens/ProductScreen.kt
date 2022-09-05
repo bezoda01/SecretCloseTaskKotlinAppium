@@ -1,4 +1,4 @@
-package base.screens
+package screens
 
 import base.element.TextField
 import base.screen.BaseScreen

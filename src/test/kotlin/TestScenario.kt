@@ -1,7 +1,7 @@
-import base.screens.CityChoiceScreen
-import base.screens.MainScreen
-import base.screens.ProductScreen
-import base.screens.SellerScreen
+import screens.CityChoiceScreen
+import screens.MainScreen
+import screens.ProductScreen
+import screens.SellerScreen
 import org.testng.Assert
 import org.testng.annotations.Test
 import utils.StringUtils
@@ -19,11 +19,8 @@ class TestScenario {
         cityChoiceScreen.clickOnCurrentCity()
         Assert.assertTrue(mainScreen.getCityName(city), "City didn't choice")
         Assert.assertTrue(
-            StringUtils.splitString(mainScreen.getSumm(), " ").toInt() > StringUtils.splitString(
-                mainScreen.getPrice(),
-                " "
-            ).toInt(), "price and discount didn't correct"
-        )
+            StringUtils.splitString(mainScreen.getSumm(), " ").toInt() >
+                    StringUtils.splitString(mainScreen.getPrice(), " ").toInt(), "price and discount didn't correct")
         mainScreen.clickOnProduct()
         val productScreen = ProductScreen()
         Assert.assertTrue(productScreen.isDisplayed(), "product screen didn't open")

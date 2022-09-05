@@ -2,7 +2,7 @@ package base.driver
 
 import io.appium.java_client.android.AndroidDriver
 import org.openqa.selenium.remote.DesiredCapabilities
-import settings.Settings
+import base.settings.Settings
 import utils.JsonUtils
 import java.net.URL
 import java.time.Duration

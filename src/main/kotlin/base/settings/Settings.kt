@@ -1,4 +1,4 @@
-package settings
+package base.settings
 
 import org.json.simple.JSONObject
 import utils.FilesUtils

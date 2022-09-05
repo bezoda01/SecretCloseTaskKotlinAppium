@@ -15,6 +15,6 @@ class TextField(locator: By, name: String) : BaseElement(locator, name) {
     }
 
     fun sendText(text: String) {
-        element?.sendKeys(text)
+        element.sendKeys(text)
     }
 }

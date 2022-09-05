@@ -4,7 +4,7 @@ import base.driver.Driver
 import org.openqa.selenium.By
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
-import settings.Settings
+import base.settings.Settings
 import java.time.Duration
 
 class ExplicitWait(private var locator: By) {
